@@ -1,0 +1,99 @@
+#body {
+  /*min-width:190px;*/
+  text-align:center;
+  font-family:Helvetica, sans;
+  /*
+  background from :
+  http://lea.verou.me/css3patterns/#carbon-fibre
+  */
+  background:
+radial-gradient(black 15%, transparent 16%) 0 0,
+radial-gradient(black 15%, transparent 16%) 8px 8px,
+radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+background-color:#282828;
+background-size:16px 16px;
+}
+
+p {
+  margin-top:55px;
+  font-size:4em;
+  font-family:Niconne;
+  color:orange;
+}
+
+#buttonBox {
+  margin-top:-20px;
+}
+
+#sessionBox, #reset, #breakBox {
+  display:inline-block;
+  line-height:1.6;
+  background-color:;
+  font-size:1.5em;
+  color:orange;
+}
+
+#sessionPlus, #sessionMinus, #breakPlus, #breakMinus, #reset, #mainDisplay:hover {
+  cursor:pointer
+}
+
+#reset {
+  vertical-align:top;
+/*   padding-top:36px; */
+  padding:48px 35px 19px 35px;
+  background-color:;
+}
+
+#displayBox {
+  left:17px; /*added 17px here to get the Start word aligned with the Reset word; without this it's not perfectly aligned ( due to the Session word being a bit too long); it's barely noticeable and an acceptable solution to give a more pleasant user experience with the impression of everything being aligned*/
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+  min-width:265px;
+  min-height:265px;
+  width:25vw;
+  height:25vw;
+  border-radius:100%;
+  background-color:orange;
+  margin:50px auto auto;
+  position:absolute;
+  color:#282828;
+}
+
+#mainDisplay{
+  margin-top:20%;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom:12%;
+  height:auto;
+  width:25%;
+  font-size:2.3em;
+  /*padding:18% 0 10px 0px;*/
+  /*background-color:red;*/
+}
+
+#mainTimer {
+  font-size:4.8em;
+}
+
+@media (max-width: 470px) {
+  p{
+    margin-top:15px;
+  }
+  #sessionBox, #reset, #breakBox {
+  display:block;
+  line-height:1.6;
+  background-color:;
+  font-size:1.5em;
+  color:orange;
+  }
+  #reset{
+    padding-top:0;
+  }
+  #displayBox{
+    margin-bottom:80px;
+    left:0px; /*removed the extra 17px I added for when the window width is over 470px, so it's perfectly centered*/
+  }
+}
