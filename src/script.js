@@ -51,6 +51,21 @@ $(document).ready(function() {
     }
   });
 
+  $("#mainDisplay").on('mousedown',function(){
+    $('#displayBox').css({
+      'border':'1px solid orange',
+      'box-shadow':'0px 0px 2px 1.5px #e4e4e4'
+    });
+  });
+  $("#mainDisplay").on('mouseup',function(){
+    $("#mainDisplay").css('display','none');
+    $('#mainTimer').addClass('mainTimerOn');
+    $('#displayBox').css({
+      'border':'2px solid orange',
+      'box-shadow':'0px 0.5px 3px 2.5px #e9e9e9'
+    });
+  });
+
   //Reset everything
   $("#reset").click(function() {
     StopCount();
@@ -58,6 +73,8 @@ $(document).ready(function() {
     brk = 5;
     $("#sessionDisplay").html(study);
     $("#breakDisplay").html(brk);
+    $("#mainTimer").removeClass('mainTimerOn');
+    $("#mainDisplay").css('display','block');
 
   });
 

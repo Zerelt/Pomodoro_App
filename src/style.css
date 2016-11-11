@@ -1,99 +1,162 @@
+* {
+    user-select: none;
+}
+
 #body {
-  /*min-width:190px;*/
-  text-align:center;
-  font-family:Helvetica, sans;
-  /*
+    text-align: center;
+    font-family: Helvetica, sans;
+    /*
   background from :
   http://lea.verou.me/css3patterns/#carbon-fibre
   */
-  background:
-radial-gradient(black 15%, transparent 16%) 0 0,
-radial-gradient(black 15%, transparent 16%) 8px 8px,
-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
-background-color:#282828;
-background-size:16px 16px;
+    background: radial-gradient(black 15%, transparent 16%) 0 0, radial-gradient(black 15%, transparent 16%) 8px 8px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
+    background-color: #282828;
+    background-size: 16px 16px;
 }
 
 p {
-  margin-top:55px;
-  font-size:4em;
-  font-family:Niconne;
-  color:orange;
+    margin-top: 55px;
+    font-size: 4em;
+    font-family: Niconne;
+    color: darkorange;
 }
 
 #buttonBox {
-  margin-top:-20px;
+    margin-top: -20px;
 }
 
 #sessionBox, #reset, #breakBox {
-  display:inline-block;
-  line-height:1.6;
-  background-color:;
-  font-size:1.5em;
-  color:orange;
-}
-
-#sessionPlus, #sessionMinus, #breakPlus, #breakMinus, #reset, #mainDisplay:hover {
-  cursor:pointer
+    display: inline-block;
+    line-height: 1.6;
+    font-size: 1.5em;
+    color: darkorange;
 }
 
 #reset {
-  vertical-align:top;
-/*   padding-top:36px; */
-  padding:48px 35px 19px 35px;
-  background-color:;
+    text-decoration: underline;
+}
+
+#sessionPlus, #sessionMinus, #breakPlus, #breakMinus {
+    background-color: #f8f8ff;
+    color: darkorange;
+    width: 50%;
+    border-radius: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0px 1px 3px 1.5px #e9e9e9;
+}
+
+#sessionPlus:active, #sessionMinus:active, #breakPlus:active, #breakMinus:active {
+    background-color: darkorange;
+    color: aliceblue;
+    box-shadow: 0px 0px 2px 1.5px #e4e4e4;
+}
+
+#sessionPlus, #sessionMinus, #breakPlus, #breakMinus, #reset, #mainDisplay:hover {
+    cursor: pointer;
+}
+
+#reset {
+    vertical-align: top;
+    padding: 48px 35px 19px 35px;
 }
 
 #displayBox {
-  left:17px; /*added 17px here to get the Start word aligned with the Reset word; without this it's not perfectly aligned ( due to the Session word being a bit too long); it's barely noticeable and an acceptable solution to give a more pleasant user experience with the impression of everything being aligned*/
-  right:0;
-  margin-left:auto;
-  margin-right:auto;
-  text-align:center;
-  min-width:265px;
-  min-height:265px;
-  width:25vw;
-  height:25vw;
-  border-radius:100%;
-  background-color:orange;
-  margin:50px auto auto;
-  position:absolute;
-  color:#282828;
+    left: 17px;
+    /*added 17px here to get the Start word aligned
+    with the Reset word; without this it's not perfectly
+    aligned ( due to the Session word being a bit too long);
+    */
+    right: 0;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    min-width: 265px;
+    min-height: 265px;
+    width: 25vw;
+    height: 25vw;
+    border-radius: 100%;
+    background-color: darkorange;
+    margin: 50px auto;
+    position: absolute;
+    color: #282828;
+    border: 2px solid orange;
+    box-shadow: 0px 0.5px 3px 2.5px #e9e9e9;
 }
 
-#mainDisplay{
-  margin-top:20%;
-  margin-left:auto;
-  margin-right:auto;
-  margin-bottom:12%;
-  height:auto;
-  width:25%;
-  font-size:2.3em;
-  /*padding:18% 0 10px 0px;*/
-  /*background-color:red;*/
+#mainDisplay:active, #mainDisplay:active+#mainTimer {
+    color: aliceblue;
+}
+
+#mainDisplay {
+    margin-top: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 12%;
+    height: auto;
+    width: 40%;
+    max-width: 135px;
+    font-size: 2.3em;
+    border-bottom: 2px solid aliceblue;
 }
 
 #mainTimer {
-  font-size:4.8em;
+    font-size: 4.8em;
 }
 
-@media (max-width: 470px) {
-  p{
-    margin-top:15px;
-  }
-  #sessionBox, #reset, #breakBox {
-  display:block;
-  line-height:1.6;
-  background-color:;
-  font-size:1.5em;
-  color:orange;
-  }
-  #reset{
-    padding-top:0;
-  }
-  #displayBox{
-    margin-bottom:80px;
-    left:0px; /*removed the extra 17px I added for when the window width is over 470px, so it's perfectly centered*/
-  }
+.mainTimerOn {
+    color: aliceblue;
+    position: absolute;
+    height: 8vmin;
+    width: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    line-height: 8vmin;
+}
+
+@media (max-width: 768px) {
+    p {
+        margin-top: 15px;
+        font-size: 2em;
+    }
+    #buttonBox {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
+    #sessionBox, #reset, #breakBox {
+        display: inline-block;
+        width: 50%;
+        margin: auto;
+        line-height: 1.6;
+        background-color: ;
+        font-size: 1.1em;
+        color: orange;
+    }
+    #sessionBox {
+        width: 50%;
+        margin: 0;
+        float: left;
+    }
+    #breakBox {
+        position: absolute;
+        margin: 0;
+        top: 0;
+        left: 50%;
+    }
+    #reset {
+        padding: 30px;
+    }
+    #displayBox {
+        /*margin-top:200px;*/
+        margin-top: 0px;
+        margin-bottom: 80px;
+        left: 0px;
+        /*removed the extra 17px I added for when the window width is over 470px, so it's perfectly centered*/
+    }
 }
