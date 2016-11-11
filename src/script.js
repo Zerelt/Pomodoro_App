@@ -6,6 +6,8 @@ $(document).ready(function() {
   var action; //variable for the setTimeout for the minutes
   var action2; // variable for the setTimeout for the seconds
   var x=0; //variable necessary to get the min and sec to display
+  var breakSound=new Audio(' ./sounds/Circles0.mp3');
+  var sessionSound=new Audio(' ./sounds/Chord0.mp3');
 
 
   $("#sessionDisplay").html(study);
@@ -91,6 +93,7 @@ $(document).ready(function() {
       beginCD()
     },1000);
     if(z===0 && q===0) {
+      breakSound.play();
       clearTimeout(action);
       x=0;
       breakCD();
@@ -108,6 +111,7 @@ $(document).ready(function() {
       breakCD()
     },1000);
     if(z2===0 && q2===0) {
+      sessionSound.play();
       clearTimeout(action2);
       x=0;
       beginCD();

@@ -4,7 +4,7 @@
 
 #body {
     text-align: center;
-    font-family: Helvetica, sans;
+    font-family: 'Open Sans',Arial,Helvetica;
     /*
   background from :
   http://lea.verou.me/css3patterns/#carbon-fibre
@@ -17,7 +17,7 @@
 p {
     margin-top: 55px;
     font-size: 4em;
-    font-family: Niconne;
+    font-family: 'Niconne';
     color: darkorange;
 }
 
@@ -90,6 +90,7 @@ p {
 }
 
 #mainDisplay {
+    font-family:Arial,Helvetica;
     margin-top: 20%;
     margin-left: auto;
     margin-right: auto;
@@ -97,7 +98,7 @@ p {
     height: auto;
     width: 40%;
     max-width: 135px;
-    font-size: 2.3em;
+    font-size: 2.8em;/*2.8*/
     border-bottom: 2px solid aliceblue;
 }
 
