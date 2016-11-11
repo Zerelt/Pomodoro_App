@@ -69,8 +69,6 @@ p {
     */
     right: 0;
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
     text-align: center;
     min-width: 265px;
     min-height: 265px;
@@ -156,7 +154,7 @@ p {
     #displayBox {
         /*margin-top:200px;*/
         margin-top: 0px;
-        margin-bottom: 80px;
+        margin-bottom: 30px;
         left: 0px;
         /*removed the extra 17px I added for when the window width is over 470px, so it's perfectly centered*/
     }
