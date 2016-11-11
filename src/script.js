@@ -77,13 +77,22 @@ $(document).ready(function() {
     $("#breakDisplay").html(brk);
     $("#mainTimer").removeClass('mainTimerOn');
     $("#mainDisplay").css('display','block');
-
+    $('#displayBox').css({
+      'background-color':'darkorange',
+      'box-shadow':'0px 0.5px 3px 2.5px #e9e9e9'
+    });
+    $('#mainTimer').css('color','#282828');
   });
 
   //Functions:
   //Start counting
   function beginCD () {
     mode = true;
+    $('#displayBox').css({
+      'background-color':'darkorange',
+      'box-shadow':'0px 0.5px 3px 2.5px #e9e9e9'
+    });
+    $('#mainTimer').css('color','#f8f8f8');
     var z=Math.floor((study*60-x)%3600/60); //praise stackoverflow !
     var q=Math.floor((study*60-x)%3600%60); //praise stackoverflow !
     $("#spanMin").html(format(z) + ":");
@@ -102,6 +111,11 @@ $(document).ready(function() {
   }
 
   function breakCD () {
+    $('#displayBox').css({
+      'background-color':'lightyellow',
+      'box-shadow':'0px 0.5px 3px 2.5px darkorange'
+    });
+    $('#mainTimer').css('color','darkorange');
     var z2=Math.floor((brk*60-x)%3600/60);
     var q2=Math.floor((brk*60-x)%3600%60);
     $("#spanMin").html(format(z2) + ":");
