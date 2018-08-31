@@ -1,7 +1,6 @@
 $(document).ready(function() {
   var study = 25;//Default,on load page,session time
   var brk = 5; //Default,on load page, break time
-  //var seconds = 0; not needed anymore, was for old version
   var mode = false; //App mode
   var action; //variable for the setTimeout for the minutes
   var action2; // variable for the setTimeout for the seconds
@@ -10,92 +9,61 @@ $(document).ready(function() {
   var sessionSound=new Audio(' ./sounds/Chord0.mp3');
 
 
-  $("#sessionDisplay").html(study);
-  $("#breakDisplay").html(brk);
+  $("#spanMin").html(format($("#sliderWork").val()));
 
-  //Modify the session duration
-  //if(!mode) { //this doesn't work because the if gets evaluated only once - when the page loads; that's why this condition has to be inside the click handlers, so it gets evaluated when you click;
+  //Modify the session duration and get and show values
+  function getValues(){
+    $("#sessionDisplay").html($("#sliderWork").val());
+    study = $("#sliderWork").val();
+    $("#breakDisplay").html($("#sliderBreak").val());
+    brk = $("#sliderBreak").val();
+  }
 
-    $("#sessionPlus").click(function() {
-    if(!mode) {
-      study++;
-    }
-    $("#sessionDisplay").html(study);
-  });
-  $("#sessionMinus").click(function() {
-    if (study > 1 && !mode) {
-      study--;
-    }
-    $("#sessionDisplay").html(study);
-  });
-
-  //Modify break duration
-  $("#breakPlus").click(function() {
-    if (!mode) {
-    brk++;
-    }
-    $("#breakDisplay").html(brk);
-  });
-  $("#breakMinus").click(function() {
-    if (brk > 1 && !mode) {
-      brk--;
-    }
-    $("#breakDisplay").html(brk);
+  $('#sliderWork').on('input',getValues);
+  $('#sliderBreak').on('input',getValues);
+  $('#sliderWork').on('load',getValues());
+  $('#sliderBreak').on('load',getValues());
+  $('#sliderWork').on('change',function() {
+    var selectedMin = format($("#sliderWork").val());
+    format($("#spanMin").html(selectedMin));
   });
 
-  //}
-
-  //Activate timer:
-  $("#mainDisplay").click(function() {
+  //Activate & stop timer:
+  $("#displayBox").click(function() {
     //startAction();
     if(!mode) {
     beginCD();
+    $('#sessionBox').addClass('hidden');
+    $('#breakBox').addClass('hidden');
+    $('h1').addClass('show_h1');
+    $('h2').addClass('show_h2');
+    $('.not_active').addClass('show_notActive');
+    $('#blueContainer').css('animation', 'none '+ (study*60)+'s' +' linear infinite');
+    $('#blueContainer2').css('animation', 'none '+ (brk*60)+'s' +' linear infinite');
+    } else {
+      StopCount();
+      $('#sessionBox').removeClass('hidden');
+      $('#breakBox').removeClass('hidden');
+      $('h1').removeClass('show_h1');
+      $('h2').removeClass('show_h2');
+      $('.not_active').removeClass('show_notActive');
+      $('#blueContainer').css('animation', 'none');
+      $('#blueContainer2').css('animation', 'none');
     }
   });
 
-  $("#mainDisplay").on('mousedown',function(){
-    $('#displayBox').css({
-      'border':'1px solid orange',
-      'box-shadow':'0px 0px 2px 1.5px #e4e4e4'
-    });
-  });
-  $("#mainDisplay").on('mouseup',function(){
-    $("#mainDisplay").css('display','none');
-    $('#mainTimer').addClass('mainTimerOn');
-    $('#displayBox').css({
-      'border':'2px solid orange',
-      'box-shadow':'0px 0.5px 3px 2.5px #e9e9e9'
-    });
-  });
-
-  //Reset everything
-  $("#reset").click(function() {
-    StopCount();
-    study = 25;
-    brk = 5;
-    $("#sessionDisplay").html(study);
-    $("#breakDisplay").html(brk);
-    $("#mainTimer").removeClass('mainTimerOn');
-    $("#mainDisplay").css('display','block');
-    $('#displayBox').css({
-      'background-color':'darkorange',
-      'box-shadow':'0px 0.5px 3px 2.5px #e9e9e9'
-    });
-    $('#mainTimer').css('color','#282828');
-  });
-
-  //Functions:
   //Start counting
   function beginCD () {
     mode = true;
-    $('#displayBox').css({
-      'background-color':'darkorange',
-      'box-shadow':'0px 0.5px 3px 2.5px #e9e9e9'
-    });
-    $('#mainTimer').css('color','#f8f8f8');
-    var z=Math.floor((study*60-x)%3600/60); //praise stackoverflow !
-    var q=Math.floor((study*60-x)%3600%60); //praise stackoverflow !
-    $("#spanMin").html(format(z) + ":");
+    var z=Math.floor((study*60-x)%3600/60); 
+    var q=Math.floor((study*60-x)%3600%60);
+    $('.msg1').addClass('not_active').addClass('show_notActive');
+    $('.msg2').removeClass('not_active').removeClass('show_notActive');
+    $('#blueContainer').css('opacity','1');
+    $('#blueContainer2').css('opacity','0');
+    $('#blueContainer').css('animation-name','rotatingSeconds');
+    $('#blueContainer2').css('animation-name','none');
+    $("#spanMin").html(format(z));
     $("#spanSec").html(format(q));
     x++;
     action = setTimeout(function() {
@@ -111,14 +79,15 @@ $(document).ready(function() {
   }
 
   function breakCD () {
-    $('#displayBox').css({
-      'background-color':'lightyellow',
-      'box-shadow':'0px 0.5px 3px 2.5px darkorange'
-    });
-    $('#mainTimer').css('color','darkorange');
     var z2=Math.floor((brk*60-x)%3600/60);
     var q2=Math.floor((brk*60-x)%3600%60);
-    $("#spanMin").html(format(z2) + ":");
+    $('.msg1').removeClass('not_active').removeClass('show_notActive');
+    $('.msg2').addClass('not_active').addClass('show_notActive');
+    $('#blueContainer').css('opacity','0');
+    $('#blueContainer2').css('opacity','1');
+    $('#blueContainer').css('animation-name','none');
+    $('#blueContainer2').css('animation-name','rotatingSeconds2');
+    $("#spanMin").html(format(z2));
     $("#spanSec").html(format(q2));
     x++;
     action2 = setTimeout(function() {
@@ -134,11 +103,9 @@ $(document).ready(function() {
 
   //Pause timer
   function StopCount() {
-    //clearTimeout(action);
-    //clearTimeout(action2);
     clearTimeout(action);
     clearTimeout(action2);
-    $("#spanMin").html(format(0)+ ":");
+    $("#spanMin").html(format($("#sliderWork").val()));
     $("#spanSec").html(format(0));
     mode = false;
     x=0;

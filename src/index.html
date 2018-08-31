@@ -3,7 +3,7 @@
 <html lang='en'>
 
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans|Niconne' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato|Montserrat:200,300,400' rel='stylesheet' type='text/css'>
     <link href='./style.css' rel='stylesheet' type='text/css'>
     <script src="./jquery/jquery-3.1.1.slim.min.js"></script>
     <script src='./script.js' type='text/javascript'></script>
@@ -13,36 +13,43 @@
 </head>
 
 <body id="body">
-    <p>Pomodoro App</p>
-
+    <div id="messagesBox">
+        <h1>Time to</h1>
+        <h2 class="msg1 not_active">have a break</h2>
+        <h2 class="msg2">make miracles</h2>
+    </div>
     <div id="buttonBox">
-
         <div id="sessionBox">
-            <div>Session length</div>
-            <div id="sessionPlus">+</div>
-            <div id="sessionDisplay">
-                <!--numbers will go here-->
-            </div>
-            <div id="sessionMinus">-</div>
+            <p>Work</p>
+            <input type='range' name='work' min='1' max='60' 
+            value='35' id='sliderWork' />
+            <div id="sessionDisplay"><!--numbers will go here--></div>
         </div>
-
-        <div id="reset">Reset</div>
 
         <div id="breakBox">
-            <div>Break length</div>
-            <div id="breakPlus">+</div>
-            <div id="breakDisplay">
-                <!--numbers will go here-->
-            </div>
-            <div id="breakMinus">-</div>
+            <p>Break</p>
+            <input type='range' name='work' min='1' max='60' 
+            value='5' id='sliderBreak' />
+            <div id="breakDisplay"><!--numbers will go here--></div>
         </div>
-
     </div>
 
-    <div id="displayBox">
-        <div id="mainDisplay">Start</div>
-        <div id="mainTimer"> <span id="spanMin">00:</span><span id="spanSec">00</span>
-            <!--numbers will go here-->
+    <div id='display_container_shadow' ></div>
+
+    <div id="display_container">
+        <div id="displayBox">
+            <div id='blueContainer'>
+                <div id='blueCircle'></div>
+            </div>
+            <div id='blueContainer2'>
+                <div id='blueCircle2'></div>
+            </div>
+            <div id="mainTimer">
+                <span id="spanMin"></span>
+                <span id="separator">:</span>
+                <span id="spanSec">00</span>
+                <!--numbers will go here-->
+            </div>
         </div>
     </div>
 
