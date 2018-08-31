@@ -1,163 +1,557 @@
+@-webkit-keyframes rotatingSeconds { 
+    from { -webkit-transform:rotate(0deg); } 
+    to { -webkit-transform:rotate(360deg); } 
+    }
+@-moz-keyframes rotatingSeconds { 
+    from { -moz-transform:rotate(0deg); } 
+    to { -moz-transform:rotate(360deg); } 
+}
+@keyframes rotatingSeconds { 
+    from { transform:rotate(0deg); } 
+    to { transform:rotate(360deg); } 
+}
+@-webkit-keyframes rotatingSeconds2 { 
+    from { -webkit-transform:rotate(0deg); } 
+    to { -webkit-transform:rotate(-360deg); } 
+    }
+@-moz-keyframes rotatingSeconds2 { 
+    from { -moz-transform:rotate(0deg); } 
+    to { -moz-transform:rotate(-360deg); } 
+}
+@keyframes rotatingSeconds2 { 
+    from { transform:rotate(0deg); } 
+    to { transform:rotate(-360deg); } 
+}
+
 * {
+    margin:0;
+    padding:0;
     user-select: none;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html{
+    min-height:100%;
+    min-width:100%;
 }
 
 #body {
-    text-align: center;
-    font-family: 'Open Sans',Arial,Helvetica;
-    /*
-  background from :
-  http://lea.verou.me/css3patterns/#carbon-fibre
-  */
-    background: radial-gradient(black 15%, transparent 16%) 0 0, radial-gradient(black 15%, transparent 16%) 8px 8px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
-    background-color: #282828;
-    background-size: 16px 16px;
+    min-height:100%;
+    background-image:url('./images/topographic_pattern.svg');
+    background-size: cover;
+    background-repeat:no-repeat;
+    overflow: hidden;
 }
 
-p {
-    margin-top: 55px;
-    font-size: 4em;
-    font-family: 'Niconne';
-    color: darkorange;
+#display_container,#display_container_shadow{
+    position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-image: linear-gradient(to right, #8b00d0, #7101ae, #58018d, #41016d, #2c004e);
+    border-radius : 0px 1000px 1000px 0;
+    border:none;
+    outline:none;
 }
 
-#buttonBox {
-    margin-top: -20px;
+/* the shadow container sits behind the display_container with left:-1px and has the drop-shadow;
+    the drop-shadow isn't applied directly to the display_container to avoid the pixelated 
+    white line rendering problem caused by the high border-dadius */
+#display_container_shadow{
+    left:-1px;
+    box-shadow:5px 0 16px rgba(44,0,78,0.5);
 }
 
-#sessionBox, #reset, #breakBox {
-    display: inline-block;
-    line-height: 1.6;
-    font-size: 1.5em;
-    color: darkorange;
+#blueContainer,#blueContainer2{
+    position:absolute;
+    min-width: 210px;
+    min-height: 210px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    outline:none;
+    transform:rotate(0deg);
 }
 
-#reset {
-    text-decoration: underline;
-}
-
-#sessionPlus, #sessionMinus, #breakPlus, #breakMinus {
-    background-color: #f8f8ff;
-    color: darkorange;
-    width: 50%;
-    border-radius: 3px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0px 1px 3px 1.5px #e9e9e9;
-}
-
-#sessionPlus:active, #sessionMinus:active, #breakPlus:active, #breakMinus:active {
-    background-color: darkorange;
-    color: aliceblue;
-    box-shadow: 0px 0px 2px 1.5px #e4e4e4;
-}
-
-#sessionPlus, #sessionMinus, #breakPlus, #breakMinus, #reset, #mainDisplay:hover {
-    cursor: pointer;
-}
-
-#reset {
-    vertical-align: top;
-    padding: 48px 35px 19px 35px;
+#blueCircle,#blueCircle2{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    position:absolute;
+    top:0;
+    left:50%;
+    width:5vmin;
+    height:5vmin;
+    margin-left:-2.5vmin;
+    margin-top:-2.5vmin;
+    border-radius:50%;
+    background:#00ddd0;
+    box-shadow:0 0 4px rgba(4,165,153,0.8);
 }
 
 #displayBox {
-    left: 17px;
-    /*added 17px here to get the Start word aligned
-    with the Reset word; without this it's not perfectly
-    aligned ( due to the Session word being a bit too long);
-    */
-    right: 0;
-    position: relative;
-    text-align: center;
-    min-width: 265px;
-    min-height: 265px;
-    width: 25vw;
-    height: 25vw;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    min-width: 210px;
+    min-height: 210px;
+    width: 50vmin;
+    height: 50vmin;
     border-radius: 100%;
-    background-color: darkorange;
-    margin: 50px auto;
-    position: absolute;
-    color: #282828;
-    border: 2px solid orange;
-    box-shadow: 0px 0.5px 3px 2.5px #e9e9e9;
+    background-color:whitesmoke;
+    color: #4d008c;
+    cursor:pointer;
 }
 
-#mainDisplay:active, #mainDisplay:active+#mainTimer {
-    color: aliceblue;
+#mainTimer{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    position:relative;
 }
 
-#mainDisplay {
-    font-family:Arial,Helvetica;
-    margin-top: 20%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 12%;
-    height: auto;
-    width: 40%;
-    max-width: 135px;
-    font-size: 2.8em;/*2.8*/
-    border-bottom: 2px solid aliceblue;
+#spanMin, #separator, #spanSec {
+    font-size: 11vmin;
+    font-family:'Lato';
+    font-weight: 900;
+    text-shadow:0 0 1.6px #8b00d0;
+}
+#separator{
+    display:inline-block;
+    line-height:45%;
+    height:50%;
+    width:auto;
+    max-width:20px;
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    margin:auto;
+    text-align:center;
+    vertical-align: middle;
+}
+#spanMin{
+    margin-right:14px;
+}
+#spanSec{
+    margin-left:14px;
 }
 
-#mainTimer {
-    font-size: 4.8em;
+#messagesBox,#buttonBox{
+    height:100%;
+    width:50%;
+    position:absolute;
+    right:0;
+    top:-5vmin;
+    padding:0 15px 0 20px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.mainTimerOn {
-    color: aliceblue;
-    position: absolute;
-    height: 8vmin;
-    width: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    line-height: 8vmin;
+#sessionBox, #breakBox {
+    position:relative;
+    width:100%;
+    max-width:620px;
+    height:30%;
+    /* background:orange; */
+    text-align:left;
+}
+
+h1,h2,p,#sessionDisplay,#breakDisplay{
+    font-size:12vmin;
+    font-family:'Montserrat';
+    font-weight: 200;
+    color:#ff55fa;
+}
+
+p{
+    margin-bottom:15px;
+}
+
+#messagesBox{
+    height:80%;
+    top:0vh;
+    padding: 0 0 0 5vw;
+    align-items:flex-start;
+}
+
+h1{
+    font-size:8vw;
+    margin-bottom:20vh;
+    white-space:nowrap;
+    opacity:0;
+    transition:opacity 0.12s ease-in-out, font-size 0.2s ease-in-out;
+}
+
+h2{
+    font-size:5vw;
+    font-weight: 300;
+    margin:4vh 0;
+    white-space:nowrap;
+    opacity:0;
+    transition:opacity 0.12s ease-in-out, font-size 0.2s ease-in-out;
+}
+
+.not_active{
+    font-size:4vmin;
+    color:#2c004e;
+    opacity:0;
+    margin:0;
+    transition:opacity 0.12s ease-in-out, font-size 0.2s ease-in-out;
+}
+
+#sessionDisplay,#breakDisplay {
+    position:absolute;
+    font-size:10vmin;
+    top:0;
+    right:0;
+    line-height:1.8;
+}
+
+input[type=range] {
+    /*removes default webkit styles*/
+    -webkit-appearance: none;
+    appearance: none;
+    /*fix for FF unable to apply focus style bug */
+    border: 1px solid white;
+    
+    border-radius:50px;
+
+    /*required for proper track sizing in FF*/
+    width: 80%;
+    outline:none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    max-width: 500px;
+    height: 16px;
+    background: #fff;
+    border: none;
+    outline:none;
+    border-radius: 50px;
+    box-shadow: 0 0 5px rgba(44,0,78,0.35);
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background: #ff55fa;
+    margin-top: -15px;
+    box-shadow: 0 0 4px rgba(44,0,78,0.8);
+    cursor:pointer;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-moz-range-track {
+    max-width: 500px;
+    height: 16px;
+    background: #fff;
+    border: none;
+    outline:none;
+    border-radius: 50px;
+    box-shadow: 0 0 5px rgba(44,0,78,0.35);
+}
+
+input[type=range]::-moz-range-thumb {
+    appearance: none;
+    border: none;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background: #ff55fa;
+    margin-top: -15px;
+    box-shadow: 0 0 4px rgba(44,0,78,0.8);
+    cursor:pointer;
+}
+
+input[type=range]::-ms-track {
+    max-width: 500px;
+    height: 16px;
+    background: #fff;
+    border: none;
+    outline:none;
+    border-radius: 50px;
+    box-shadow: 0 0 5px rgba(44,0,78,0.35);
+    color:transparent;
+    margin:22.5px 0; /*trick to show thumb if thumb has a bigger height than the track in IE/Edge*/
+}
+
+input[type=range]::-ms-thumb {
+    appearance: none;
+    border: none;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background: #ff55fa;
+    margin-top: -4px; /*need to change the margin now after adding the margin to the track*/
+    box-shadow: 0 0 4px rgba(44,0,78,0.8);
+    cursor:pointer;
+}
+
+/*animation classes and timings*/
+.hidden div {
+    transform:translateX(100vmax);
+}
+.hidden p {
+    transform:translateX(100vmax);
+}
+.hidden input {
+    transform:translateX(100vmax);
+}
+#sessionDisplay{
+    transition:transform 0.24s ease-in-out;
+}
+#sessionBox p{
+    transition:transform 0.24s 0.2s ease-in-out;
+}
+#sessionBox input[type=range] {
+    transition:transform 0.2s 0.25s ease-in-out;
+}
+#breakDisplay{
+    transition:transform 0.24s 0.1s ease-in-out;
+}
+#breakBox p{
+    transition:transform 0.24s 0.35s ease-in-out;
+}
+#breakBox input[type=range] {
+    transition:transform 0.2s 0.45s ease-in-out;
+}
+.show_h1, .show_h2{
+    opacity:1;
+    transition:opacity 0.2s 0.8s ease-in-out, font-size 0.2s ease-in-out;
+}
+.show_notActive{
+    opacity:0.3 !important;
+    transition:opacity 0.2s 0.8s ease-in-out, font-size 0.2s ease-in-out !important;
+}
+
+
+
+@media (max-width:1400px) {
+    #sessionBox,#breakBox{
+        max-width:500px;
+    }
+    p{
+        font-size:11vmin;
+    }
+    #sessionDisplay,#breakDisplay{
+        font-size:9vmin;
+    }
+}
+@media (max-width:1200px) {
+    #sessionBox,#breakBox{
+        max-width:450px;
+    }
+    p{
+        font-size:10vmin;
+    }
+    #sessionDisplay,#breakDisplay{
+        font-size:8vmin;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+        height:12px !important;
+    }
+    input[type=range]::-webkit-slider-thumb {
+        height:35px;
+        width:35px;
+        margin-top:-12px;
+    }
+    input[type=range]::-moz-range-track {
+        height:12px !important;
+    }
+    input[type=range]::-moz-range-thumb {
+        height:35px;
+        width:35px;
+        margin-top:-12px;
+    }
+    input[type=range]::-ms-track {
+        height:12px !important;
+        margin:17.5px 0;
+    }
+    input[type=range]::-ms-thumb {
+        height:35px;
+        width:35px;
+        margin-top:-2px;
+    }
+}
+
+@media(max-width:1000px) and (orientation:landscape) {
+    #display_container_shadow {
+        box-shadow:4px 0 10px rgba(44,0,78,0.5)
+    }
+    #sessionBox,#breakBox{
+        max-width:400px;
+    }
+    p{
+        font-size:9vmin;
+    }
+    #sessionDisplay,#breakDisplay{
+        font-size:8.5vmin;
+    }
+}
+
+@media (max-width:1000px ) and (orientation:portrait) {
+    #display_container,#display_container_shadow{
+        top:0;bottom: unset;
+        height:50%;
+        width:100%;
+        border-radius:0 0 1000px 1000px;
+        background-image: linear-gradient(to bottom, #8b00d0, #7101ae, #58018d, #41016d, #2c004e);
+    }
+    #display_container_shadow {
+        left:unset;
+        top:-1px;
+        box-shadow:0px 5px 12px rgba(44,0,78,0.5)
+    }
+    #buttonBox{
+        height:50%;
+        width:100%;
+        top:unset;
+        bottom:0;
+    }
+    #sessionBox,#breakBox{
+        max-width:500px;
+    }
+    p{
+        font-size:9vmin;
+    }
+    #sessionDisplay,#breakDisplay{
+        font-size:8.5vmin;
+    }
+    #messagesBox{
+        bottom:0;
+        top:unset;
+        width:100%;
+        height:50%;
+        padding:0 5vw 0 0;
+        align-items:flex-end;
+    }
+    h1{
+        margin-bottom:14vh;
+        font-size:14vw;
+    }
+    h2{
+        font-size:9vw;
+    }
+    .not_active{
+        font-size:5vw;
+    }
+}
+
+@media screen and (orientation:portrait)  {
+    #display_container,#display_container_shadow{
+        top:0;bottom: unset;
+        height:50%;
+        width:100%;
+        border-radius:0 0 1000px 1000px;
+        background-image: linear-gradient(to bottom, #8b00d0, #7101ae, #58018d, #41016d, #2c004e);
+    }
+    #display_container_shadow {
+        left:unset;
+        top:-1px;
+        box-shadow:0px 4px 10px rgba(44,0,78,0.5)
+    }
+    #buttonBox{
+        height:50%;
+        width:100%;
+        top:unset;
+        bottom:0;
+    }
+    #sessionBox,#breakBox{
+        max-width:500px;
+    }
+    p{
+        font-size:9vmin;
+    }
+    #sessionDisplay,#breakDisplay{
+        font-size:8.5vmin;
+    }
+    #messagesBox{
+        bottom:0;
+        top:unset;
+        width:100%;
+        height:50%;
+        padding:0 5vw 0 0;
+        align-items:flex-end;
+    }
+    h1{
+        margin-bottom:14vh;
+        font-size:14vw;
+    }
+    h2{
+        font-size:9vw;
+    }
+    .not_active{
+        font-size:5vw;
+    }
 }
 
 @media (max-width: 768px) {
-    p {
-        margin-top: 15px;
-        font-size: 2em;
-    }
-    #buttonBox {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        position: relative;
-    }
-    #sessionBox, #reset, #breakBox {
-        display: inline-block;
-        width: 50%;
-        margin: auto;
-        line-height: 1.6;
-        background-color: ;
-        font-size: 1.1em;
-        color: orange;
-    }
-    #sessionBox {
-        width: 50%;
-        margin: 0;
-        float: left;
-    }
-    #breakBox {
-        position: absolute;
-        margin: 0;
-        top: 0;
-        left: 50%;
-    }
-    #reset {
-        margin-top:30px;
-        margin-bottom:25px;
-        padding:3px;/*30px*/
+    #blueCircle,#blueCircle2{
+        height:4vmin;
+        width:4vmin;
+        margin-top:-2vmin;
+        margin-left:-2vmin;
     }
     #displayBox {
-        /*margin-top:200px;*/
-        margin-top: 0px;
-        margin-bottom: 30px;
-        left: 0px;
-        /*removed the extra 17px I added for when the window width is over 470px, so it's perfectly centered*/
+       width:45vmin;
+       height:45vmin;
+    }
+    /*can't chain the track and thumb selectors. They need to be separate*/
+    input[type=range]::-webkit-slider-runnable-track {
+        height:8px !important;
+    }
+    input[type=range]::-webkit-slider-thumb {
+        height:30px;
+        width:30px;
+        margin-top:-11px;
+    }
+    input[type=range]::-moz-range-track {
+        height:8px !important;
+    }
+    input[type=range]::-moz-range-thumb {
+        height:30px;
+        width:30px;
+        margin-top:-11px;
+    }
+    input[type=range]::-ms-track {
+        height:8px !important;
+        margin:15px 0;
+    }
+    input[type=range]::-ms-thumb {
+        height:30px;
+        width:30px;
+        margin-top:0px;
+    }
+}
+
+@media (max-width:500px) and (max-height:500px) {
+    #blueContainer,#blueContainer2,#displayBox {
+        width:180px !important;
+        height:180px !important;
+        min-width:180px;
+        min-height:180px;
+    }
+}
+
+@media (max-width:500px) {
+    #blueContainer,#blueContainer2,#displayBox {
+       width:210px;
+       height:210px;
     }
 }
